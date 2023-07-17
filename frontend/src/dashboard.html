@@ -142,7 +142,6 @@
 <script>
 
     
-    const creator = JSON.parse(localStorage.getItem("creatoremail"))
     console.log("🚀 ~ file: dashboard.html:56 ~ creator:", creator)
     const quizsaveApi = "https://mock6-ff4w.onrender.com/quiz/add"
     const allQuestions = [];
@@ -216,6 +215,7 @@
     document.getElementById('submitQuiz').addEventListener('click', function (event) {
         event.preventDefault();
         const title = document.getElementById("quizTitle").value
+        const creator = JSON.parse(localStorage.getItem("creatoremail"))
 
         const quiz = {
             creator: creator,
