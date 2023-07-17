@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,52 @@
 <style>
 
 </style>
+
 <body>
-    
+    <h1>Dashboard Page</h1>
+    <form id="quizForm">
+        <label>
+            Quiz Title
+        </label>
+        <input type="text" id="quizTitle" />
+        <br />
+        <label>
+            Description
+        </label>
+        <textarea id="quizDescription"></textarea>
+        <br />
+
+        <h3>Add question one by one and then submit the quiz at the end</h3>
+        <p>totalQuestionAdded:
+        <h3 id="totalQuestionAdded"></h3>
+        </p>
+
+        <div id="questionsContainer">
+            <h3>Questions:</h3>
+            <div class="question">
+                <label for="questionTitle">Question Title:</label>
+                <input type="text" id="questionTitle" required><br>
+                <label for="options">Options:</label><br>
+                <input type="text" class="option" required>
+                <input type="radio" name="correctOption" class="correctOption" value="0" required><br>
+                <input type="text" class="option" required>
+                <input type="radio" name="correctOption" class="correctOption" value="1" required><br>
+                <input type="text" class="option" required>
+                <input type="radio" name="correctOption" class="correctOption" value="2" required><br>
+                <input type="text" class="option" required>
+                <input type="radio" name="correctOption" class="correctOption" value="3" required><br>
+            </div>
+        </div>
+        <button type="button" id="addQuestion">Add Question</button><br><br>
+
+        <button type="submit" id="submitQuiz">Submit Quiz</button>
+    </form>
 
 </body>
 <script>
-    
+   
 </script>
+
+</script>
+
 </html>
