@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,48 @@
 <style>
 
 </style>
+
 <body>
-    
+    <div id="leaderboardContainer">
+    </div>
 
 </body>
 <script>
-    
+    const getAllQuizApi = "http://localhost:8080/quiz/get"
+
+
+    window.addEventListener("load", (event) => {
+        console.log("page is fully loaded");
+        showLeaderBoard();
+    });
+    function leaderboard(user) {
+        const leaderboardItem = document.createElement("div");
+        leaderboardItem.classList.add("leaderboard-item");
+
+        leaderboardItem.innerHTML = `
+                <p>User: ${user.userName}</p>
+                <p>Quiz Score: ${user.score}</p>
+            `;
+
+        const leaderboardContainer = document.getElementById("leaderboardContainer");
+        leaderboardContainer.appendChild(leaderboardItem);
+    }
+
+    async function showLeaderBoard() {
+
+        try {
+            const response = await fetch(getAllQuizApi,);
+            const result = await response.json();
+            console.log("Success:", result);
+            for (const leaderboard of result) {
+                // console.log(quiz.quiz)
+                console.log(leaderboard.leaderboard)
+                // showSingleQuiz(leaderboard);
+            }
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+    }
 </script>
+
 </html>
