@@ -7,11 +7,76 @@
     <title>Document</title>
 </head>
 <style>
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
 
+    p {
+        font-size: 16px;
+        text-transform: uppercase;
+        color: green;
+    }
+
+    form {
+        max-width: 80vw;
+        margin: 0 auto;
+        display: none;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 90%;
+        padding: 8px;
+        margin: 5px;
+    }
+
+    input[type="radio"] {
+        padding: 8px;
+        margin: 5px;
+    }
+
+
+    #questionsContainer {
+        padding: 5px;
+    }
+
+    .question {
+        margin-bottom: 20px;
+    }
+
+    .option {
+        display: flex;
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        background-color: skyblue;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: lightgreen;
+    }
+    h2{
+        font-size: 20px;
+        text-align: center;
+    }
 </style>
 
 <body>
-    <h1>Dashboard Page</h1>
+    <h1>Dashboard Page</h1> <button type="button" id="createQuizBtn">Create Quiz</button>
+
     <form id="quizForm">
         <label>
             Quiz Title
@@ -50,6 +115,8 @@
         <button type="submit" id="submitQuiz">Submit Quiz</button>
     </form>
 
+    <h2>All quizzes</h2>
+
 </body>
 <script>
     const creator = JSON.parse(localStorage.getItem("creatoremail"))
@@ -57,6 +124,18 @@
     const quizsaveApi = "http://localhost:8080/quiz/add"
     const allQuestions = [];
     let questionCount = 0;
+
+    const createQuizBtn = document.getElementById('createQuizBtn');
+    const quizForm = document.getElementById('quizForm');
+
+    createQuizBtn.addEventListener('click', function () {
+        quizForm.style.display = 'block';
+    });
+
+
+
+
+
     function questionCountfunction(allQuestions) {
         questionCount = allQuestions.length;
         console.log("🚀 ~ file: dashboard.html:56 ~ questionCountfunction ~ questionCount:", questionCount)
@@ -92,6 +171,7 @@
                 option.checked = false;
             });
             questionCountfunction(allQuestions)
+
         }
         else {
             alert("You can only add upto 10 questions");
@@ -126,6 +206,8 @@
                     });
 
                     const result = await response.json();
+                    quizForm.style.display = 'none';
+
                     console.log("Success:", result);
                 } catch (error) {
                     console.error("Error:", error);
