@@ -24,10 +24,9 @@ const quizSchema = mongoose.Schema({
                 type: [String],
                 required: true
             },
-            correctOptions: {
+            correctOption: {
                 //similarly multiple correct answers can be there so used array 
-
-                type: [Number],
+                type: Number,
                 required: true
             }
         }

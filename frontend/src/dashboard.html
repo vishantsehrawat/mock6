@@ -52,7 +52,89 @@
 
 </body>
 <script>
-   
+    const creator = JSON.parse(localStorage.getItem("creatoremail"))
+    console.log("🚀 ~ file: dashboard.html:56 ~ creator:", creator)
+    const quizsaveApi = "http://localhost:8080/quiz/add"
+    const allQuestions = [];
+    let questionCount = 0;
+    function questionCountfunction(allQuestions) {
+        questionCount = allQuestions.length;
+        console.log("🚀 ~ file: dashboard.html:56 ~ questionCountfunction ~ questionCount:", questionCount)
+        document.getElementById("totalQuestionAdded").innerHTML = questionCount;
+    }
+
+    document.getElementById('addQuestion').addEventListener('click', function (event) {
+        event.preventDefault();
+        if (questionCount < 10) {
+
+            const questionData = {
+                title: document.getElementById("questionTitle").value,
+                options: [],
+                correctOption: null,
+            };
+
+            const options = document.querySelectorAll('.option');
+            options.forEach(function (option, index) {
+                questionData.options.push(option.value);
+                if (document.querySelectorAll('.correctOption')[index].checked) {
+                    questionData.correctOption = +index;
+                }
+            });
+
+            allQuestions.push(questionData);
+
+            console.log(allQuestions); // checking the added quesions
+
+            // clearing form
+            document.getElementById("questionTitle").value = "";
+            options.forEach(function (option) {
+                option.value = "";
+                option.checked = false;
+            });
+            questionCountfunction(allQuestions)
+        }
+        else {
+            alert("You can only add upto 10 questions");
+        }
+    });
+
+
+
+
+    // saving all quesion into database 
+    document.getElementById('submitQuiz').addEventListener('click', function (event) {
+        event.preventDefault();
+        const title = document.getElementById("quizTitle").value
+
+        const quiz = {
+            creator: creator,
+            title: title,
+            description: document.getElementById("quizDescription").value,
+            questions: allQuestions
+        }
+        console.log("🚀 ~ file: dashboard.html:113 ~ quiz:", quiz)
+        if (allQuestions.length > 0) {
+            addquizData(quiz)
+            async function addquizData(quiz) {
+                try {
+                    const response = await fetch(quizsaveApi, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(quiz),
+                    });
+
+                    const result = await response.json();
+                    console.log("Success:", result);
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+        } else {
+            alert('Please add at least one question');
+        }
+    });
 </script>
 
 </script>
