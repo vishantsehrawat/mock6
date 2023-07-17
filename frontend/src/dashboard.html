@@ -68,9 +68,24 @@
     button:hover {
         background-color: lightgreen;
     }
-    h2{
+
+    h2 {
         font-size: 20px;
         text-align: center;
+    }
+
+    #cards {
+        display: flex;
+        gap: 20px;
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+
+    #cards>.quizCard {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 10px;
+        border-radius: 10px;
+        width: 30%;
     }
 </style>
 
@@ -116,6 +131,9 @@
     </form>
 
     <h2>All quizzes</h2>
+    <div id="cards">
+
+    </div>
 
 </body>
 <script>
@@ -125,6 +143,14 @@
     const allQuestions = [];
     let questionCount = 0;
 
+    const getAllQuizApi = "http://localhost:8080/quiz/get"
+
+
+    window.addEventListener("load", (event) => {
+        console.log("page is fully loaded");
+        getAllQuizData()
+
+    });
     const createQuizBtn = document.getElementById('createQuizBtn');
     const quizForm = document.getElementById('quizForm');
 
@@ -217,6 +243,66 @@
             alert('Please add at least one question');
         }
     });
+
+
+
+    // showing all the quizzes 
+
+    async function getAllQuizData() {
+        try {
+            const response = await fetch(getAllQuizApi,);
+
+            const result = await response.json();
+            console.log("Success:", result);
+            showAllQuiz(result)
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+    }
+    function showAllQuiz(quizzes) {
+        for (const quiz of quizzes) {
+            // console.log(quiz.quiz)
+            showSingleQuiz(quiz);
+        }
+    }
+
+    function showSingleQuiz(quiz) {
+        const cardsContainer = document.getElementById("cards");
+        const card = document.createElement("div");
+        card.classList.add("quizCard");
+
+        card.innerHTML = `
+                <h3>Quiz Creator: ${quiz.quiz.creator}</h3>
+                <h3>Quiz Title: ${quiz.quiz.title}</h3>
+                <p>Quiz Description: ${quiz.quiz.description}</p>
+                <p>No. of Questions: ${quiz.quiz.questions.length}</p>
+                <button class="takeQuizBtn" data-id="${quiz._id}">Take Quiz</button>
+                <button class="leaderboardBtn" data-id="${quiz._id}">Leaderboard</button>
+            `;
+
+        cardsContainer.appendChild(card);
+    }
+
+
+
+    // routing to quiz page 
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("takeQuizBtn")) {
+            const quizId = event.target.dataset.id;
+            console.log("🚀 ~ file: dashboard.html:292 ~ quizId:", quizId)
+            window.location.href = `/quiz/get/${quizId}`;
+        }
+    });
+
+    // leaderboard btn 
+    document.addEventListener("click", function (event) {
+        if (event.target.classList.contains("leaderboardBtn")) {
+            const quizId = event.target.dataset.quizId;
+            console.log("🚀 ~ file: dashboard.html:301 ~ quizId:", quizId)
+            // window.location.href = `/leaderboard?id=${quizId}`;
+        }
+    });
+
 </script>
 
 </script>

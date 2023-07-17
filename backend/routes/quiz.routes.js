@@ -34,7 +34,7 @@ quizRouter.get('/get', async (req, res) => {
         if (!quiz) {
             return res.status(404).send({ msg: 'Quiz not found' });
         }
-        res.status(200).send(quiz);
+        res.status(200).json(quiz);
     } catch (error) {
         res.status(500).send({ msg: error.message });
     }
