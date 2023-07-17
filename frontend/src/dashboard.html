@@ -134,15 +134,16 @@
     <div id="cards">
 
     </div>
-    <h3>leaderboard page is working , redirecting is causing some issue. go directly by clicking below button  </h3>
-    <button><a href="https://bucolic-madeleine-ebd5ce.netlify.app/leaderboard.html">direct link to leaderboard</a></button>
+    <h3>leaderboard page is working , redirecting is causing some issue. go directly by clicking below button </h3>
+    <button><a href="https://bucolic-madeleine-ebd5ce.netlify.app/leaderboard.html">direct link to
+            leaderboard</a></button>
 
 
 </body>
 <script>
 
-    
-    console.log("🚀 ~ file: dashboard.html:56 ~ creator:", creator)
+
+    // console.log("🚀 ~ file: dashboard.html:56 ~ creator:", creator)
     const quizsaveApi = "https://mock6-ff4w.onrender.com/quiz/add"
     const allQuestions = [];
     let questionCount = 0;
@@ -298,7 +299,7 @@
             window.location.href = `/quiz/get/${quizId}`;
         }
     });
-    
+
     // leaderboard btn 
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("leaderboardBtn")) {
