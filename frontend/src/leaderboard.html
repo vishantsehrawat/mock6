@@ -7,34 +7,33 @@
     <title>Document</title>
 </head>
 <style>
-
+    #leaderboardContainer .leaderboardDiv:nth-child(2n-1){
+        background-color: lightblue;
+    }
+    p{
+        font-size: 16px;
+        text-transform: capitalize;
+        padding: 10px;
+        /* width: 50%; */
+    }
 </style>
 
 <body>
+    <h1>leaderboard</h1>
+
     <div id="leaderboardContainer">
     </div>
 
 </body>
 <script>
-    const getAllQuizApi = "http://localhost:8080/quiz/get"
+    const getAllQuizApi = "https://bucolic-madeleine-ebd5ce.netlify.app/quiz/get"
 
 
     window.addEventListener("load", (event) => {
         console.log("page is fully loaded");
         showLeaderBoard();
     });
-    function leaderboard(user) {
-        const leaderboardItem = document.createElement("div");
-        leaderboardItem.classList.add("leaderboard-item");
 
-        leaderboardItem.innerHTML = `
-                <p>User: ${user.userName}</p>
-                <p>Quiz Score: ${user.score}</p>
-            `;
-
-        const leaderboardContainer = document.getElementById("leaderboardContainer");
-        leaderboardContainer.appendChild(leaderboardItem);
-    }
 
     async function showLeaderBoard() {
 
@@ -46,10 +45,32 @@
                 // console.log(quiz.quiz)
                 console.log(leaderboard.leaderboard)
                 // showSingleQuiz(leaderboard);
+                let sortedData = leaderboard.leaderboard.sort((a, b) => b.score - a.score);
+                console.log("🚀 ~ file: leaderboard.html:50 ~ showLeaderBoard ~ sortedData:", sortedData)
+                displayLeader(sortedData)
+
             }
         } catch (error) {
             console.error("Error:", error.message);
         }
+    }
+
+
+    function displayLeader(data) {
+        for (const item of data) {
+            const email = item.email;
+            const score = item.score;
+            console.log(email, score)
+            const leaderboardContainer = document.getElementById("leaderboardContainer");
+            const leaderboardDiv = document.createElement("div");
+            leaderboardDiv.classList.add("leaderboardDiv");
+            leaderboardDiv.innerHTML = `
+                        <p>Email: ${email}</p>
+                        <p>Score: ${score}</p>
+                    `;
+                    leaderboardContainer.appendChild(leaderboardDiv);
+        }
+
     }
 </script>
 

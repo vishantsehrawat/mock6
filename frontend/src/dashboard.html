@@ -139,11 +139,11 @@
 <script>
     const creator = JSON.parse(localStorage.getItem("creatoremail"))
     console.log("🚀 ~ file: dashboard.html:56 ~ creator:", creator)
-    const quizsaveApi = "http://localhost:8080/quiz/add"
+    const quizsaveApi = "https://bucolic-madeleine-ebd5ce.netlify.app/quiz/add"
     const allQuestions = [];
     let questionCount = 0;
 
-    const getAllQuizApi = "http://localhost:8080/quiz/get"
+    const getAllQuizApi = "https://bucolic-madeleine-ebd5ce.netlify.app/quiz/get"
 
 
     window.addEventListener("load", (event) => {
@@ -293,12 +293,13 @@
             window.location.href = `/quiz/get/${quizId}`;
         }
     });
-
+    
     // leaderboard btn 
     document.addEventListener("click", function (event) {
         if (event.target.classList.contains("leaderboardBtn")) {
             const quizId = event.target.dataset.id;
             console.log("🚀 ~ file: dashboard.html:301 ~ quizId:", quizId)
+            window.location.href = `/quiz/get/${quizId}`;
             // window.location.href = `/leaderboard?id=${quizId}`;
         }
     });
